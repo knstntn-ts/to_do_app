@@ -1,0 +1,61 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block content %}
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="row cont justify-content-md-center">
+        <h1>Your personal tasks</h1>
+    </div>
+
+    <div class="container">
+        {% for task in tasks:%}
+        <div class="row justify-content-center">
+            <div class="col border">
+                
+                {{ task.task }}
+            </div>
+            <div class="col"><a href="{{ url_for('mark_done', user_id=1, task_id=task.id) }}">Done</a></div>
+        </div>
+
+        {% endfor %}
+        <form class="form form-control-lg" method="post" role="form">
+            <div class="row justify-content-center">
+
+                {{ new_task_form.hidden_tag() }}
+                <div class="col">
+                    {{ wtf.form_field(new_task_form.task, novalidate=True, form_type='inline',
+                    extra_classes='form-control
+                    form-control-lg') }}
+                </div>
+
+                <div class="col">
+                    {{ wtf.form_field(new_task_form.submit, novalidate=True, form_type='inline', button_map={"submit":
+                    "primary"}) }}
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+
+
+
+
+</body>
+
+</html>
+
+{% endblock %}
